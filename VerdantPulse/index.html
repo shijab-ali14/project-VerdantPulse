@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerdantPulse | Light Edition - Sustainable Urban Vertical Farming</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        sage: {
+                            50: '#f4f7f4',
+                            100: '#e3ebe3',
+                            200: '#c7dac7',
+                            300: '#a3c2a3',
+                            600: '#537d53',
+                            800: '#2f482f',
+                        },
+                        mint: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                        },
+                        lightbg: '#f8faf8',
+                        cardlight: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-emerald': '0 10px 30px -5px rgba(16, 185, 129, 0.15)',
+                        'soft-glass': '0 10px 30px 0 rgba(0, 0, 0, 0.05)',
+                        'floating': '0 20px 40px -15px rgba(5, 150, 105, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body class="selection:bg-emerald-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 glass-panel-light rounded-2xl mt-3 px-6 border border-emerald-100 shadow-soft-glass">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-soft-emerald group-hover:scale-105 transition-transform duration-300">
+                        <i class="fa-solid font-bold fa-leaf text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight text-gray-900">Verdant<span class="text-emerald-600">Pulse</span></span>
+                </a>
+
+                <!-- Desktop Nav Items -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-600">
+                    <a href="#about" class="hover:text-emerald-600 transition-colors">About</a>
+                    <a href="#calculator" class="hover:text-emerald-600 transition-colors">Impact Calculator</a>
+                    <a href="#pods" class="hover:text-emerald-600 transition-colors">Urban Pods</a>
+                    <a href="#telemetry" class="hover:text-emerald-600 transition-colors">Live OS</a>
+                    <a href="#pricing" class="hover:text-emerald-600 transition-colors">Subscriptions</a>
+                </nav>
+
+                <!-- Actions / CTAs -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button onclick="toggleAmbientLight()" id="glowToggleBtn" class="p-2.5 rounded-xl glass-panel-light text-gray-600 hover:text-emerald-600 hover:border-emerald-300 transition-all" title="Toggle Interactive Spectrum Lighting">
+                        <i class="fa-solid fa-lightbulb text-lg"></i>
+                    </button>
+                    <a href="#demo" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-soft-emerald transition-all duration-300 hover:-translate-y-0.5">
+                        Book Demo
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-gray-700 hover:text-emerald-600 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-2">
+            <div class="glass-panel-light rounded-2xl p-6 space-y-4 flex flex-col border border-emerald-100 shadow-xl">
+                <a href="#about" class="mobile-link text-gray-700 hover:text-emerald-600 text-lg font-medium">About</a>
+                <a href="#calculator" class="mobile-link text-gray-700 hover:text-emerald-600 text-lg font-medium">Impact Calculator</a>
+                <a href="#pods" class="mobile-link text-gray-700 hover:text-emerald-600 text-lg font-medium">Urban Pods</a>
+                <a href="#telemetry" class="mobile-link text-gray-700 hover:text-emerald-600 text-lg font-medium">Live OS</a>
+                <a href="#pricing" class="mobile-link text-gray-700 hover:text-emerald-600 text-lg font-medium">Subscriptions</a>
+                <hr class="border-gray-200">
+                <a href="#demo" class="mobile-link w-full text-center py-3 rounded-xl bg-emerald-600 text-white font-semibold">
+                    Book Demo
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden" id="about">
+        <!-- Light Mode Ambient Glow Elements -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-200/40 rounded-full blur-[140px] pointer-events-none transition-all duration-700" id="ambientLightBg"></div>
+        <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-teal-200/30 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Column -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel-light border border-emerald-300/60 text-emerald-700 text-xs sm:text-sm font-semibold uppercase tracking-wider shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>The Future of Zero-KM Food Production</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-black text-gray-900 leading-tight tracking-tight">
+                        Hyper-Local AgriTech. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800">Zero Pesticides. Maximum Yield.</span>
+                    </h1>
+
+                    <p class="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        VerdantPulse transforms indoor urban spaces into self-sustaining, AI-optimized hydroponic ecosystems. Harvest fresh, organic microgreens and produce 365 days a year—using 95% less water.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#pods" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-soft-emerald hover:scale-[1.02] transition-all text-center">
+                            Explore Urban Pods <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel-light text-gray-800 hover:text-emerald-700 border border-emerald-200 font-bold text-base transition-all text-center">
+                            Calculate Impact <i class="fa-solid fa-calculator ml-2 text-emerald-600"></i>
+                        </a>
+                    </div>
+
+                    <!-- Dynamic Live Impact Counters -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-gray-200">
+                        <div class="p-3">
+                            <h3 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight" id="counterFarms">1,240+</h3>
+                            <p class="text-xs sm:text-sm text-gray-500 font-semibold">Active Pods</p>
+                        </div>
+                        <div class="p-3 border-x border-gray-200">
+                            <h3 class="text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight" id="counterWater">8.4M</h3>
+                            <p class="text-xs sm:text-sm text-gray-500 font-semibold">Liters Saved</p>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="text-2xl sm:text-3xl font-black text-teal-600 tracking-tight" id="counterYield">142K</h3>
+                            <p class="text-xs sm:text-sm text-gray-500 font-semibold">Kg Produce Harvested</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Column (Interactive Smart Garden Graphic Light Theme) -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-md aspect-[4/5] glass-panel-glow-light rounded-3xl p-6 flex flex-col justify-between overflow-hidden animate-float shadow-floating">
+                        
+                        <!-- Header Bar inside Pod Preview -->
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="text-xs font-mono tracking-widest text-emerald-700 uppercase font-bold">POD-ALPHA // ONLINE</span>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500" id="podTime">12:45:09 UTC</span>
+                        </div>
+
+                        <!-- Interactive Animated SVG Vertical Garden Illustration Light Theme -->
+                        <div class="relative my-4 flex justify-center items-center">
+                            <svg class="w-full h-64 sm:h-72 drop-shadow-md" viewBox="0 0 300 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Tower Frame -->
+                                <rect x="90" y="20" width="120" height="320" rx="16" fill="#f0fdf4" stroke="#d1fae5" stroke-width="4"/>
+                                <rect x="100" y="30" width="100" height="300" rx="10" fill="#ffffff" stroke="#e3ebe3" stroke-width="2"/>
+                                
+                                <!-- LED Spectrum Bar -->
+                                <line x1="150" y1="35" x2="150" y2="325" stroke="#10B981" stroke-width="6" stroke-linecap="round" class="animate-pulse-glow-light" id="svgLedStrip"/>
+                                
+                                <!-- Level 1 Leaves -->
+                                <g class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                                    <path d="M120 70 C100 50, 70 80, 115 85 Z" fill="#10B981"/>
+                                    <path d="M180 70 C200 50, 230 80, 185 85 Z" fill="#059669"/>
+                                    <circle cx="150" cy="75" r="4" fill="#34D399"/>
+                                </g>
+
+                                <!-- Level 2 Leaves -->
+                                <g class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                                    <path d="M120 130 C95 110, 65 140, 115 145 Z" fill="#34D399"/>
+                                    <path d="M180 130 C205 110, 235 140, 185 145 Z" fill="#10B981"/>
+                                    <circle cx="150" cy="135" r="4" fill="#34D399"/>
+                                </g>
+
+                                <!-- Level 3 Leaves -->
+                                <g class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                                    <path d="M120 190 C90 170, 60 200, 115 205 Z" fill="#059669"/>
+                                    <path d="M180 190 C210 170, 240 200, 185 205 Z" fill="#34D399"/>
+                                    <circle cx="150" cy="195" r="4" fill="#34D399"/>
+                                </g>
+
+                                <!-- Level 4 Microgreens -->
+                                <g class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                                    <path d="M120 250 C95 230, 70 260, 115 265 Z" fill="#10B981"/>
+                                    <path d="M180 250 C205 230, 230 260, 185 265 Z" fill="#059669"/>
+                                    <circle cx="150" cy="255" r="4" fill="#34D399"/>
+                                </g>
+
+                                <!-- Water Droplets Hydroponic Animation -->
+                                <circle cx="150" cy="60" r="3" fill="#06B6D4">
+                                    <animate attributeName="cy" values="60;300;60" dur="4s" repeatCount="indefinite" />
+                                    <animate attributeName="opacity" values="1;0.2;1" dur="4s" repeatCount="indefinite" />
+                                </circle>
+                                <circle cx="150" cy="120" r="2.5" fill="#06B6D4">
+                                    <animate attributeName="cy" values="120;320;120" dur="3s" repeatCount="indefinite" />
+                                </circle>
+                            </svg>
+                        </div>
+
+                        <!-- Mini Floating Sensor Badges -->
+                        <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                            <div class="bg-emerald-50/80 p-2.5 rounded-xl border border-emerald-100 flex items-center justify-between">
+                                <span class="text-gray-600"><i class="fa-solid fa-droplet text-teal-500 mr-1.5"></i>Nutrients</span>
+                                <span class="text-emerald-700 font-bold">Optimal</span>
+                            </div>
+                            <div class="bg-emerald-50/80 p-2.5 rounded-xl border border-emerald-100 flex items-center justify-between">
+                                <span class="text-gray-600"><i class="fa-solid fa-sun text-amber-500 mr-1.5"></i>Spectrum</span>
+                                <span class="text-teal-700 font-bold" id="ledSpectrumLabel">Full Synth</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Impact Calculator Section -->
+    <section class="py-24 bg-sage-50/70 relative border-y border-emerald-100" id="calculator">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Environmental Intelligence</h2>
+                <p class="text-3xl sm:text-5xl font-extrabold text-gray-900">Measure Your Eco-Footprint Savings</p>
+                <p class="text-gray-600 text-base sm:text-lg">Adjust your household parameters to see how shifting to VerdantPulse hydroponics drastically reduces water usage and CO₂ emissions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Controls Column -->
+                <div class="lg:col-span-6 glass-panel-light rounded-3xl p-8 space-y-8 border border-emerald-100 shadow-sm">
+                    
+                    <!-- Slider 1: Household Members -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <label for="householdSlider" class="font-bold text-gray-800">Household Size</label>
+                            <span class="text-emerald-700 font-bold text-lg" id="householdVal">3 People</span>
+                        </div>
+                        <input type="range" id="householdSlider" min="1" max="10" value="3" class="w-full">
+                        <div class="flex justify-between text-xs text-gray-500 font-medium">
+                            <span>1 Person</span>
+                            <span>5 People</span>
+                            <span>10+ People</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 2: Weekly Salad & Green Consumption -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <label for="produceSlider" class="font-bold text-gray-800">Weekly Produce Intake (Servings/Person)</label>
+                            <span class="text-emerald-700 font-bold text-lg" id="produceVal">12 Servings</span>
+                        </div>
+                        <input type="range" id="produceSlider" min="2" max="30" value="12" class="w-full">
+                        <div class="flex justify-between text-xs text-gray-500 font-medium">
+                            <span>Light (2)</span>
+                            <span>Moderate (15)</span>
+                            <span>High Greens (30)</span>
+                        </div>
+                    </div>
+
+                    <!-- Toggle: Organic Grocery Sourcing -->
+                    <div class="p-4 rounded-2xl bg-white border border-emerald-100 flex items-center justify-between shadow-xs">
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-800">Include Transport Emissions Saved</h4>
+                            <p class="text-xs text-gray-500">Eliminates cross-country cold-chain shipping logistics</p>
+                        </div>
+                        <button id="transportToggle" class="w-12 h-6 rounded-full bg-emerald-500 p-1 transition-colors duration-200 flex items-center justify-end shadow-inner">
+                            <span class="w-4 h-4 rounded-full bg-white shadow-md"></span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Results Column -->
+                <div class="lg:col-span-6 glass-panel-glow-light rounded-3xl p-8 space-y-8">
+                    <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-emerald-600"></i> Estimated Annual Savings
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Water Savings Card -->
+                        <div class="bg-white rounded-2xl p-6 border border-emerald-100 shadow-sm relative overflow-hidden">
+                            <div class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Water Conserved</div>
+                            <div class="text-3xl sm:text-4xl font-black text-teal-600 mb-1" id="calcWater">1,404 L</div>
+                            <div class="text-xs text-gray-500">Equivalent to ~28 average showers</div>
+                            <!-- Visual Progress Bar -->
+                            <div class="w-full bg-gray-100 h-2.5 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-gradient-to-r from-teal-500 to-emerald-400 h-full rounded-full transition-all duration-500" id="barWater" style="width: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Carbon Savings Card -->
+                        <div class="bg-white rounded-2xl p-6 border border-emerald-100 shadow-sm relative overflow-hidden">
+                            <div class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">CO₂ Offset</div>
+                            <div class="text-3xl sm:text-4xl font-black text-emerald-600 mb-1" id="calcCo2">187 kg</div>
+                            <div class="text-xs text-gray-500">Equal to planting ~9 mature trees</div>
+                            <!-- Visual Progress Bar -->
+                            <div class="w-full bg-gray-100 h-2.5 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500" id="barCo2" style="width: 70%;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Organic Money Savings Highlight -->
+                    <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs uppercase text-emerald-800 font-extrabold tracking-wider">Estimated Grocery Offset</span>
+                            <div class="text-2xl font-black text-gray-900" id="calcMoney">$480 / year</div>
+                        </div>
+                        <a href="#demo" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm">
+                            Claim Trial
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Modular Urban Pods Showcase Section -->
+    <section class="py-24 relative" id="pods">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="space-y-3 max-w-2xl">
+                    <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Modular Hardware Systems</h2>
+                    <p class="text-3xl sm:text-5xl font-extrabold text-gray-900">Engineered for Any Urban Footprint</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex p-1.5 glass-panel-light rounded-2xl self-start border border-emerald-100 shadow-sm">
+                    <button class="filter-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm" data-filter="all">All Models</button>
+                    <button class="filter-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all" data-filter="residential">Residential</button>
+                    <button class="filter-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all" data-filter="commercial">Commercial</button>
+                </div>
+            </div>
+
+            <!-- Pod Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="podGrid">
+                
+                <!-- Pod Card 1 -->
+                <div class="pod-card residential glass-panel-light rounded-3xl p-6 border border-emerald-100 hover:border-emerald-300 transition-all duration-300 group hover:-translate-y-2 shadow-sm hover:shadow-floating">
+                    <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 mb-6 h-56 flex items-center justify-center border border-emerald-100">
+                        <span class="absolute top-3 left-3 bg-white/90 text-emerald-700 text-xs font-mono font-bold px-3 py-1 rounded-full border border-emerald-200 shadow-xs">Residential</span>
+                        <!-- SVG Visual Graphic -->
+                        <svg class="w-32 h-32 text-emerald-600 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="4" y="2" width="16" height="20" rx="2" stroke-dasharray="2 2"/>
+                            <path d="M12 6v12M8 10l4-4 4 4M8 16l4-4 4 4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">MicroPod Solo</h3>
+                    <p class="text-gray-600 text-sm mb-6 leading-relaxed">Compact vertical countertop garden designed for apartment kitchens. Grows greens, herbs, and edible flowers seamlessly.</p>
+
+                    <ul class="space-y-2.5 mb-8 text-xs text-gray-700">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 16 Harvest Pod Slots</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Integrated Hydro-Reservoir (5L)</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Ultra-quiet Ultrasonic Atomizer</li>
+                    </ul>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Starting at</span>
+                            <span class="text-xl font-bold text-gray-900">$499</span>
+                        </div>
+                        <button onclick="openPodModal('MicroPod Solo', '$499', 'Ideal for urban kitchen countertops with automated app lighting schedules.')" class="px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-700 font-semibold text-xs transition-all border border-emerald-200">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pod Card 2 -->
+                <div class="pod-card residential glass-panel-light rounded-3xl p-6 border border-emerald-100 hover:border-emerald-300 transition-all duration-300 group hover:-translate-y-2 shadow-sm hover:shadow-floating">
+                    <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-teal-50 to-emerald-50 mb-6 h-56 flex items-center justify-center border border-teal-100">
+                        <span class="absolute top-3 left-3 bg-white/90 text-emerald-700 text-xs font-mono font-bold px-3 py-1 rounded-full border border-emerald-200 shadow-xs">Residential</span>
+                        <svg class="w-32 h-32 text-teal-600 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="3"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="3" y1="15" x2="21" y2="15"/>
+                            <circle cx="8" cy="6" r="1" fill="currentColor"/>
+                            <circle cx="16" cy="12" r="1" fill="currentColor"/>
+                            <circle cx="12" cy="18" r="1" fill="currentColor"/>
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Community Tower</h3>
+                    <p class="text-gray-600 text-sm mb-6 leading-relaxed">Floor-standing 4-tier vertical column built for eco-conscious households, offices, and shared urban spaces.</p>
+
+                    <ul class="space-y-2.5 mb-8 text-xs text-gray-700">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 64 Simultaneous Plant Ports</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Full-Spectrum Automated Lighting</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Wi-Fi & Bluetooth Telemetry Sync</li>
+                    </ul>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Starting at</span>
+                            <span class="text-xl font-bold text-gray-900">$1,299</span>
+                        </div>
+                        <button onclick="openPodModal('Community Tower', '$1,299', 'High-yield 4-tier tower capable of producing up to 8kg of leafy greens monthly.')" class="px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-700 font-semibold text-xs transition-all border border-emerald-200">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pod Card 3 -->
+                <div class="pod-card commercial glass-panel-light rounded-3xl p-6 border border-emerald-100 hover:border-emerald-300 transition-all duration-300 group hover:-translate-y-2 shadow-sm hover:shadow-floating">
+                    <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-sage-100 to-emerald-50 mb-6 h-56 flex items-center justify-center border border-sage-200">
+                        <span class="absolute top-3 left-3 bg-white/90 text-teal-700 text-xs font-mono font-bold px-3 py-1 rounded-full border border-teal-200 shadow-xs">Commercial</span>
+                        <svg class="w-32 h-32 text-emerald-700 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4h16v16H4z"/>
+                            <path d="M4 10h16M10 4v16"/>
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Commercial Matrix</h3>
+                    <p class="text-gray-600 text-sm mb-6 leading-relaxed">Industrial-scale scalable modular array for restaurants, grocery hubs, and urban agricultural centers.</p>
+
+                    <ul class="space-y-2.5 mb-8 text-xs text-gray-700">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 500+ Scalable Pod Matrix</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> AI Automated Dosing & pH Balancing</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Enterprise Dashboard & API Access</li>
+                    </ul>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Custom Pricing</span>
+                            <span class="text-xl font-bold text-gray-900">Enterprise</span>
+                        </div>
+                        <button onclick="openPodModal('Commercial Matrix', 'Custom Pricing', 'Industrial vertical array designed for maximum commercial crop yield and zero waste.')" class="px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-700 font-semibold text-xs transition-all border border-emerald-200">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Real-Time Farm Telemetry OS Preview Section -->
+    <section class="py-24 bg-sage-50/70 border-y border-emerald-100 relative" id="telemetry">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-mono font-bold uppercase tracking-widest shadow-xs">VerdantOS Telemetry v4.2</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-gray-900">Live Smart Farm Intelligence</h2>
+                <p class="text-gray-600 text-base">Monitor real-time environmental sensors and automated nutrient cycles directly through our cloud platform.</p>
+            </div>
+
+            <!-- Telemetry Dashboard Frame -->
+            <div class="glass-panel-glow-light rounded-3xl p-6 sm:p-8 border border-emerald-200 relative shadow-floating">
+                
+                <!-- Dashboard Top Bar -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-gray-200 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></div>
+                        <span class="text-sm font-mono text-gray-700">ACTIVE POD: <strong class="text-emerald-800">DOWNTOWN-HUB-04</strong></span>
+                    </div>
+
+                    <div class="flex items-center space-x-3 text-xs font-mono">
+                        <button id="toggleMistBtn" onclick="toggleMisting()" class="px-3.5 py-2 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-2 shadow-xs transition-all">
+                            <i class="fa-solid fa-spray-can"></i> Ultrasonic Spray: <span id="mistStatus">AUTO</span>
+                        </button>
+                        <span class="text-gray-300">|</span>
+                        <span class="text-gray-500">Syncing in <span class="text-emerald-600 font-bold" id="syncTimer">5s</span></span>
+                    </div>
+                </div>
+
+                <!-- Sensor Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
+                    
+                    <!-- Sensor 1: Temperature & Humidity -->
+                    <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                        <div class="flex justify-between items-center text-gray-500 text-xs font-bold mb-3">
+                            <span>AMBIENT TEMP</span>
+                            <i class="fa-solid fa-temperature-half text-amber-500 text-sm"></i>
+                        </div>
+                        <div class="text-3xl font-black text-gray-900" id="statTemp">22.4 °C</div>
+                        <div class="text-xs text-emerald-700 font-semibold mt-2 flex items-center">
+                            <i class="fa-solid fa-circle-check mr-1"></i> Target: 21° - 24° C
+                        </div>
+                    </div>
+
+                    <!-- Sensor 2: pH Level -->
+                    <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                        <div class="flex justify-between items-center text-gray-500 text-xs font-bold mb-3">
+                            <span>HYDROPONIC pH</span>
+                            <i class="fa-solid fa-vial text-emerald-600 text-sm"></i>
+                        </div>
+                        <div class="text-3xl font-black text-emerald-600" id="statPh">6.2 pH</div>
+                        <div class="text-xs text-gray-500 mt-2 flex items-center font-medium">
+                            Balanced for Microgreens
+                        </div>
+                    </div>
+
+                    <!-- Sensor 3: Water Level & Nutrient EC -->
+                    <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                        <div class="flex justify-between items-center text-gray-500 text-xs font-bold mb-3">
+                            <span>NUTRIENT DENSITY (EC)</span>
+                            <i class="fa-solid fa-bolt text-teal-500 text-sm"></i>
+                        </div>
+                        <div class="text-3xl font-black text-teal-600" id="statEc">1.8 mS/cm</div>
+                        <div class="text-xs text-teal-700 font-semibold mt-2 flex items-center">
+                            <i class="fa-solid fa-water mr-1"></i> Reservoir Level: 94%
+                        </div>
+                    </div>
+
+                    <!-- Sensor 4: Next Harvest Countdown -->
+                    <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                        <div class="flex justify-between items-center text-gray-500 text-xs font-bold mb-3">
+                            <span>ESTIMATED HARVEST</span>
+                            <i class="fa-solid fa-clock text-purple-500 text-sm"></i>
+                        </div>
+                        <div class="text-3xl font-black text-purple-600" id="statCountdown">4 Days</div>
+                        <div class="text-xs text-gray-500 mt-2 font-medium">
+                            Crop: Organic Butterhead
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Interactive LED Spectrum Control Bar -->
+                <div class="p-6 rounded-2xl bg-white border border-emerald-100 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900">Photosynthetic Light Spectrum Override</h4>
+                            <p class="text-xs text-gray-500">Adjust light wavelengths to accelerate vegetative growth or flowering phases.</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="setSpectrum('veg')" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold hover:bg-emerald-100 transition-all">Veg Boost</button>
+                            <button onclick="setSpectrum('bloom')" class="px-3 py-1.5 rounded-lg bg-purple-50 text-purple-700 border border-purple-200 text-xs font-semibold hover:bg-purple-100 transition-all">Bloom Spectrum</button>
+                        </div>
+                    </div>
+
+                    <!-- Spectrum Visual Bar -->
+                    <div class="w-full h-3 rounded-full bg-gradient-to-r from-blue-500 via-emerald-400 to-purple-500 relative transition-all duration-500 opacity-90" id="spectrumBar"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Subscription & Pricing Section -->
+    <section class="py-24 relative" id="pricing">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Autonomous Seed Delivery</h2>
+                <p class="text-3xl sm:text-5xl font-extrabold text-gray-900">Select Your Greens Subscription</p>
+                <p class="text-gray-600 text-base">Fresh non-GMO seed pods and organic liquid nutrients delivered right to your door every month.</p>
+                
+                <!-- Monthly / Annual Toggle -->
+                <div class="inline-flex items-center space-x-3 p-1.5 glass-panel-light rounded-2xl mt-4 border border-emerald-100 shadow-xs">
+                    <span class="text-xs font-bold text-gray-700 pl-3">Monthly</span>
+                    <button id="pricingToggleBtn" onclick="toggleBillingCycle()" class="w-12 h-6 rounded-full bg-emerald-600 p-1 transition-colors duration-200 flex items-center justify-start shadow-inner">
+                        <span class="w-4 h-4 rounded-full bg-white shadow-md"></span>
+                    </button>
+                    <span class="text-xs font-bold text-gray-700 pr-3">Annual <span class="text-emerald-700 font-extrabold">(Save 20%)</span></span>
+                </div>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Plan 1 -->
+                <div class="glass-panel-light rounded-3xl p-8 border border-emerald-100 flex flex-col justify-between hover:border-emerald-300 transition-all shadow-sm">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Essential Pod Pack</h3>
+                        <p class="text-xs text-gray-500 mb-6">Perfect for singles or couples enjoying fresh daily herbs.</p>
+                        <div class="mb-6">
+                            <span class="text-4xl font-extrabold text-gray-900 price-value" data-monthly="$29" data-annual="$23">$29</span>
+                            <span class="text-gray-500 text-sm">/ month</span>
+                        </div>
+                        <ul class="space-y-3 text-xs text-gray-700 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 12 Organic Seed Pods / Mo</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Standard A/B Liquid Nutrients</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> App Telemetry Sync</li>
+                            <li class="flex items-center opacity-40"><i class="fa-solid fa-xmark mr-2.5"></i> Priority Variety Reserve</li>
+                        </ul>
+                    </div>
+                    <a href="#demo" class="w-full py-3 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-700 font-bold text-xs text-center border border-emerald-200 transition-all">
+                        Subscribe Now
+                    </a>
+                </div>
+
+                <!-- Plan 2 (Highlighted) -->
+                <div class="glass-panel-glow-light rounded-3xl p-8 border border-emerald-300 flex flex-col justify-between relative transform lg:-translate-y-2 shadow-floating">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider shadow-sm">Most Popular</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Urban Harvest Club</h3>
+                        <p class="text-xs text-gray-500 mb-6">Designed for vibrant households consuming salads daily.</p>
+                        <div class="mb-6">
+                            <span class="text-4xl font-extrabold text-gray-900 price-value" data-monthly="$59" data-annual="$47">$59</span>
+                            <span class="text-gray-500 text-sm">/ month</span>
+                        </div>
+                        <ul class="space-y-3 text-xs text-gray-700 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 32 Multi-Crop Seed Pods / Mo</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Premium Bio-Nutrient Formulas</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Exotic Microgreen Varieties</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> VIP Agronomist Support</li>
+                        </ul>
+                    </div>
+                    <a href="#demo" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs text-center shadow-soft-emerald transition-all">
+                        Subscribe Now
+                    </a>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="glass-panel-light rounded-3xl p-8 border border-emerald-100 flex flex-col justify-between hover:border-emerald-300 transition-all shadow-sm">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Commercial Supply Pro</h3>
+                        <p class="text-xs text-gray-500 mb-6">High-density supply for cafes, restaurants, and towers.</p>
+                        <div class="mb-6">
+                            <span class="text-4xl font-extrabold text-gray-900 price-value" data-monthly="$149" data-annual="$119">$149</span>
+                            <span class="text-gray-500 text-sm">/ month</span>
+                        </div>
+                        <ul class="space-y-3 text-xs text-gray-700 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 100+ Custom Crop Pods / Mo</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Bulk Industrial Hydro Nutrients</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> Multi-Unit Telemetry Dashboard</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2.5"></i> 24/7 Automated System Alerts</li>
+                        </ul>
+                    </div>
+                    <a href="#demo" class="w-full py-3 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-700 font-bold text-xs text-center border border-emerald-200 transition-all">
+                        Subscribe Now
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-sage-50/70 border-t border-emerald-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Urban Farmer Stories</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-gray-900">Loved by Chefs and Home Growers</p>
+            </div>
+
+            <!-- Review Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Review 1 -->
+                <div class="glass-panel-light rounded-3xl p-6 border border-emerald-100 space-y-4 shadow-sm">
+                    <div class="flex text-amber-400 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm italic leading-relaxed">"Having the MicroPod in our condo transformed our dinner routine. We clip fresh basil, kale, and mint right onto our plates."</p>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center border border-emerald-200">
+                            ES
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900">Elena Rostova</h4>
+                            <p class="text-xs text-gray-500">Apartment Grower • Chicago</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="glass-panel-light rounded-3xl p-6 border border-emerald-100 space-y-4 shadow-sm">
+                    <div class="flex text-amber-400 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm italic leading-relaxed">"The Commercial Matrix reduced our kitchen's produce acquisition costs by 40%. The flavor intensity of hydroponic microgreens is unmatched."</p>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-700 font-bold flex items-center justify-center border border-teal-200">
+                            MC
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900">Chef Marcus Chen</h4>
+                            <p class="text-xs text-gray-500">Executive Chef • San Francisco</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="glass-panel-light rounded-3xl p-6 border border-emerald-100 space-y-4 shadow-sm">
+                    <div class="flex text-amber-400 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm italic leading-relaxed">"Monitoring the telemetry live on my phone is addictive! It makes zero-kilometer agriculture completely effortless."</p>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-700 font-bold flex items-center justify-center border border-purple-200">
+                            SK
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900">Sarah Jenkins</h4>
+                            <p class="text-xs text-gray-500">Community Tower Owner • Seattle</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Contact & Book Demo Section -->
+    <section class="py-24 relative" id="demo">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="glass-panel-glow-light rounded-3xl p-8 sm:p-12 border border-emerald-200 relative overflow-hidden shadow-floating">
+                
+                <div class="text-center max-w-xl mx-auto mb-10 space-y-3">
+                    <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold uppercase">Get Started</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Book a Live OS Consultation</h2>
+                    <p class="text-gray-600 text-sm">Experience our indoor vertical pods in action or schedule an enterprise site audit.</p>
+                </div>
+
+                <!-- Form -->
+                <form id="demoForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-gray-700 uppercase">Full Name</label>
+                            <input type="text" required placeholder="Alex Mercer" class="w-full px-4 py-3 rounded-xl bg-white border border-emerald-200 text-gray-900 focus:outline-none focus:border-emerald-500 transition-colors text-sm shadow-xs">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-gray-700 uppercase">Email Address</label>
+                            <input type="email" required placeholder="alex@domain.com" class="w-full px-4 py-3 rounded-xl bg-white border border-emerald-200 text-gray-900 focus:outline-none focus:border-emerald-500 transition-colors text-sm shadow-xs">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-gray-700 uppercase">Interested Hardware</label>
+                            <select class="w-full px-4 py-3 rounded-xl bg-white border border-emerald-200 text-gray-900 focus:outline-none focus:border-emerald-500 transition-colors text-sm shadow-xs">
+                                <option>MicroPod Solo (Apartments)</option>
+                                <option>Community Tower (Offices/Homes)</option>
+                                <option>Commercial Matrix (Enterprise)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-gray-700 uppercase">Preferred Demo Date</label>
+                            <input type="date" required class="w-full px-4 py-3 rounded-xl bg-white border border-emerald-200 text-gray-900 focus:outline-none focus:border-emerald-500 transition-colors text-sm shadow-xs">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-gray-700 uppercase">Project Notes (Optional)</label>
+                        <textarea rows="3" placeholder="Tell us about your space or food output goals..." class="w-full px-4 py-3 rounded-xl bg-white border border-emerald-200 text-gray-900 focus:outline-none focus:border-emerald-500 transition-colors text-sm shadow-xs"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-soft-emerald transition-all">
+                        Schedule My Live Demo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+
+                <!-- Interactive Success Toast Overlay -->
+                <div id="formSuccessToast" class="hidden absolute inset-0 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8 z-20">
+                    <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mb-4 border border-emerald-200 animate-bounce">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Demo Request Received!</h3>
+                    <p class="text-gray-600 text-sm max-w-md mb-6">Our AgriTech team has logged your reservation. Check your inbox for calendar details and Telemetry access codes.</p>
+                    <button onclick="resetForm()" class="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase shadow-sm">
+                        Book Another
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal Preview for Pod Items -->
+    <div id="podModal" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel-glow-light max-w-lg w-full rounded-3xl p-8 relative border border-emerald-200 shadow-floating">
+            <button onclick="closePodModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2" id="modalTitle">Pod Name</h3>
+            <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold mb-4" id="modalPrice">$0</span>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6" id="modalDesc">Pod details go here...</p>
+            <div class="flex justify-end gap-3">
+                <button onclick="closePodModal()" class="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 font-semibold text-xs border border-gray-200">Close</button>
+                <a href="#demo" onclick="closePodModal()" class="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-xs">Reserve Unit</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sage-100 border-t border-emerald-200/60 py-16 text-gray-600 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <span class="text-lg font-bold text-gray-900">VerdantPulse</span>
+                </div>
+                <p class="text-gray-500 leading-relaxed">Pioneering sustainable indoor urban hydroponics to create carbon-neutral food ecosystems worldwide.</p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-gray-900 font-bold uppercase tracking-wider text-xs">Solutions</h4>
+                <ul class="space-y-2">
+                    <li><a href="#pods" class="hover:text-emerald-700 transition-colors">Residential Pods</a></li>
+                    <li><a href="#pods" class="hover:text-emerald-700 transition-colors">Commercial Towers</a></li>
+                    <li><a href="#telemetry" class="hover:text-emerald-700 transition-colors">VerdantOS Cloud</a></li>
+                    <li><a href="#pricing" class="hover:text-emerald-700 transition-colors">Seed Subscriptions</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-gray-900 font-bold uppercase tracking-wider text-xs">Impact & Science</h4>
+                <ul class="space-y-2">
+                    <li><a href="#calculator" class="hover:text-emerald-700 transition-colors">Water Reduction Calculator</a></li>
+                    <li><a href="#" class="hover:text-emerald-700 transition-colors">Pesticide-Free Standard</a></li>
+                    <li><a href="#" class="hover:text-emerald-700 transition-colors">LED Photobiology</a></li>
+                    <li><a href="#" class="hover:text-emerald-700 transition-colors">ESG Reporting</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-gray-900 font-bold uppercase tracking-wider text-xs">Connect</h4>
+                <div class="flex space-x-4 text-lg text-gray-500">
+                    <a href="#" class="hover:text-emerald-700 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-emerald-700 transition-colors"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="hover:text-emerald-700 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-emerald-700 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <p class="text-gray-500 pt-2">© 2026 VerdantPulse Inc. All rights reserved.</p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
